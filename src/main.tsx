@@ -14,6 +14,7 @@ import Profile from './pages/profile/Profile.tsx';
 import AxiosInterceptor from './services/axiosInterceptors.ts';
 import Classroom from './pages/classrooms/Classroom.tsx';
 import AddUser from './pages/users/AddUser.tsx';
+import UserDetails from './pages/users/UserDetails.tsx';
 
 AxiosInterceptor()
 
@@ -54,13 +55,17 @@ const router = createBrowserRouter([
             element: <Users />,
           },
           {
+            path: ':id',
+            element: <UserDetails />,
+            children: [{
+              path: ':edit',
+              element: <UserDetails />,
+            }]
+          },
+          {
             path: 'add',
             element: <AddUser />,
           },
-          {
-            path: ':username',
-            element: <Profile />
-          }
         ]
       }, {
         path: 'settings',

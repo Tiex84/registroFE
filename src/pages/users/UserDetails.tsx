@@ -1,50 +1,71 @@
-import { Button, Datepicker, Label, TextInput } from 'flowbite-react'
-import { t } from 'i18next'
-import React from 'react'
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
-import { User } from './Users'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import dayjs from "dayjs";
-import { formatDateValue } from '../../utils/dateUtils'
-import relativeTime from "dayjs/plugin/relativeTime";
-import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import axios, { AxiosResponse } from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useLocation, useMatch, useNavigate, useParams } from 'react-router-dom'
+import { User } from './Users';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { Label, TextInput, Datepicker, Button } from 'flowbite-react';
+import { t } from 'i18next';
+import { formatDateValue } from '../../utils/dateUtils';
+import { toast } from 'react-toastify';
 
-dayjs.extend(relativeTime);
-dayjs.extend(isSameOrAfter);
+const UserDetails: React.FC = () => {
 
-
-const AddUser: React.FC = () => {
+    const {id, edit} = useParams();
+    const [user, setUser] = useState<User>();
+    const navigate = useNavigate();
+    const [isEdit, setIsEdit] = useState<boolean>();
+    
 
     const {
         register,
         handleSubmit,
         control,
+        setValue,
+        reset,
         formState: { errors, isValid },
-    } = useForm<User>({
-        mode: 'onBlur',
-    });
+    } = useForm<User>();
+    
+    const getUser = () => axios.get(`${import.meta.env.VITE_BASE_URL}/users/${id}`).then((user: any) => {
+        setUser(user)
+    }); 
 
-    const onSubmit: SubmitHandler<User> = (data) => addUser(data);
-    const navigate = useNavigate();
+    const onSubmit: SubmitHandler<User> = (data) => editUser(data);
 
-    const addUser = (data: User) => axios.post(`${import.meta.env.VITE_BASE_URL}/users`, data).then(() => {
-        toast('Utente salvato con successo!');
+    const editUser = (data: User) => axios.put(`${import.meta.env.VITE_BASE_URL}/users/${id}`, data).then(() => {
+        toast('Utente modificato con successo!');
         navigate('/users')
     }); 
 
-    console.log(errors);
+    useEffect(() => {      
+        getUser()
+    }, []);
+
+    useEffect(() => {
+        if(user) {
+            //reset(user);
+            /*    
+                setValue('name', user.name);
+                setValue('lastname', user.lastname);
+                setValue('dateOfBirth', user.dateOfBirth); 
+            */
+        }
+    }, [user]);
+
+    useEffect(() => {
+      setIsEdit(!!edit);      
+    }, [edit])
+    
     
 
-
-
-
     
+    
+
   return (
     <>
         <div className='flex justify-between items-center py-5'>
-        <h1 className='text-xl font-bold'>{t('add')} User</h1>
+        <h1 className='text-xl font-bold'>{user?.name} {user?.lastname}</h1>
+        {!isEdit && <Button onClick={() => navigate('edit')}>{t('edit')}</Button>}
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,6 +81,7 @@ const AddUser: React.FC = () => {
                     helperText={
                         errors.name ? <span>{t('fieldRequired')}</span> : null
                     }
+                    disabled={!isEdit}
                 />
             </div>
 
@@ -74,6 +96,8 @@ const AddUser: React.FC = () => {
                     helperText={
                         errors.lastname ? <span>{t('fieldRequired')}</span> : null
                     }
+                    disabled={!isEdit}
+
                 />
             </div>
 
@@ -111,6 +135,8 @@ const AddUser: React.FC = () => {
                             showTodayButton={false}
                             showClearButton={false}
                             readOnly={false}
+                            disabled={!isEdit}
+
                         />
                     }
                 />
@@ -118,19 +144,14 @@ const AddUser: React.FC = () => {
  
             </div>
 
+            {isEdit && 
             <div className="mt-4 block">
-            <Button disabled={!isValid} type='submit'>{t('save')}</Button>
-            </div>
+            <Button disabled={isValid} type='submit'>{t('save')}</Button>
+            </div>}
 
         </form>
-    </>
-
-    
-
-
-
-
-    )
+        </>
+  )
 }
 
-export default AddUser
+export default UserDetails

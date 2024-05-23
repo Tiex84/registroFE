@@ -9,6 +9,7 @@
       "name": "Name",
       "lastname": "Lastname",
       "edit": "Edit",
+      "view": "View",
       "add": "Add",
       "save": "Save",
       "fieldRequired": "This field is required",
