@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import { HiMenuAlt3 } from "react-icons/hi";
+import LanguageSwitcher from '../../components/languageSwitcher/LanguageSwitcher';
 
 interface NavbarLayoutProps {
   toggleSidebar: () => void
@@ -10,7 +11,7 @@ const NavbarLayout: React.FC<NavbarLayoutProps> = ({
   toggleSidebar
 }) => {
   return (
-    <Navbar className='border-b border-gray-200 px-4 py-4' fluid>
+    <Navbar className='border-b border-gray-200 px-4 py-4 sticky top-0 z-50'  fluid>
       <div className='flex'>
 
         <Button onClick={toggleSidebar} className='block md:hidden'>
@@ -23,17 +24,7 @@ const NavbarLayout: React.FC<NavbarLayoutProps> = ({
       </div>
 
     <NavbarToggle />
-    <NavbarCollapse>
-      <NavbarLink href="#" active>
-        Home
-      </NavbarLink>
-      <NavbarLink href="#">
-        About
-      </NavbarLink>
-      <NavbarLink href="#">Services</NavbarLink>
-      <NavbarLink href="#">Pricing</NavbarLink>
-      <NavbarLink href="#">Contact</NavbarLink>
-    </NavbarCollapse>
+    <LanguageSwitcher />
   </Navbar>
   )
 }
