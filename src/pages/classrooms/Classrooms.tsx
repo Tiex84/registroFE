@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import { Checkbox, List, Pagination, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react'
+import { Button, Checkbox, List, Pagination, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
 
 export interface ClassroomProps {
   id: string
@@ -13,6 +14,8 @@ const Classrooms: React.FC = () => {
 
   const [data, setData] = useState<ClassroomProps[]>([])
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const getClassrooms = () => {
     axios.get(`${import.meta.env.VITE_BASE_URL}/classrooms`).then((res: any) => 
@@ -42,7 +45,11 @@ const Classrooms: React.FC = () => {
 
   return (
     <>
-    <h1>Classrooms</h1>
+
+      <div className="flex justify-between items-center py-5">
+        <h1 className="text-xl font-bold">Classrooms</h1>
+        <Button onClick={() => navigate("add")}>{t("add")}</Button>
+      </div>
 
 
  

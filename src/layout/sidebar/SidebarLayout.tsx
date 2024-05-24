@@ -8,6 +8,7 @@ import {
   HiSearch,
   HiUsers,
 } from "react-icons/hi";
+import { ProtectedRoute } from '../../services/authGuard';
 
 interface SidebarLayoutProps {
     isOpen: boolean;
@@ -48,9 +49,11 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
                 </Sidebar.Item>
               </Sidebar.ItemGroup>
               <Sidebar.ItemGroup>
-                <Sidebar.Item href="/settings" icon={HiOutlinePuzzle}>
-                  Settings
-                </Sidebar.Item>
+                { false &&
+                  <Sidebar.Item href="/settings" icon={HiOutlinePuzzle}>
+                    Settings
+                  </Sidebar.Item>
+                }
               </Sidebar.ItemGroup>
             </Sidebar.Items>
           </div>

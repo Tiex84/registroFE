@@ -43,7 +43,7 @@ const UserDetails: React.FC = () => {
 
     useEffect(() => {
         if(user) {
-            //reset(user);
+            reset(user);
             /*    
                 setValue('name', user.name);
                 setValue('lastname', user.lastname);
