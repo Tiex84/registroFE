@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle } from "flowbite-react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import LanguageSwitcher from '../../components/languageSwitcher/LanguageSwitcher';
+import StyleSwitcher from '../../components/styleSwitcher/StyleSwitcher';
 
 interface NavbarLayoutProps {
   toggleSidebar: () => void
@@ -24,6 +25,7 @@ const NavbarLayout: React.FC<NavbarLayoutProps> = ({
       </div>
 
     <NavbarToggle />
+    <StyleSwitcher />
     <LanguageSwitcher />
   </Navbar>
   )

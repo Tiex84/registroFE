@@ -6,6 +6,7 @@ module.exports = {
     './src/**/*.{js,jsx,ts,tsx}',
     flowbite.content(),
   ],
+  darkMode: "class",
   theme: {
     extend: {},
   },

@@ -156,5 +156,15 @@
       "lastname": "test",
       "dateOfBirth": "2006-05-09T22:00:00.000Z"
     }
-  ]
+  ], 
+  "settings": {
+    "enableMenu": {
+      "enableSubjects": true,
+      "enableClassrooms": false,
+      "enableUsers": false
+    },
+    "lng": "de",
+    "dark": false
+
+  }
 }

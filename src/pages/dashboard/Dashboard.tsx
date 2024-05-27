@@ -2,6 +2,7 @@ import { Button } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { Link, useBlocker, useNavigate } from 'react-router-dom';
+import Counter from '../../components/counter/counter';
 
 const Dashboard: React.FC = () => {
   
@@ -42,9 +43,10 @@ const Dashboard: React.FC = () => {
   return (
     <>
     <h1>{t('Welcome to React')}</h1>
-    <Button className="mt-5" onClick={() => handleClick('/users')}>Vai a utenti</Button>
+   {/*  <Button className="mt-5" onClick={() => handleClick('/users')}>Vai a utenti</Button>
     <Button className="mt-5" onClick={() => handleClick('/subjects')}>Vai a subjects</Button>
-    {showButton && <Button className="mt-5" onClick={() => blocker.proceed}>Vai avanti</Button>}
+    {showButton && <Button className="mt-5" onClick={() => blocker.proceed}>Vai avanti</Button>} */}
+    <Counter />
 
 </>
   )
